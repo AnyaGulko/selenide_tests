@@ -8,7 +8,7 @@ import ru.ingver.qa.guru.autotest.ConfigConstants;
 import static com.codeborne.selenide.DragAndDropOptions.to;
 import static com.codeborne.selenide.Selenide.*;
 
-public class DragAndDrop {
+public class DragAndDropTests {
 
     @BeforeAll
     static void beforeAll() {

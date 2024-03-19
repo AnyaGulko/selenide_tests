@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class EnterprisePage {
+public class EnterprisePageTests {
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = ConfigConstants.SCREEN_SIZE;

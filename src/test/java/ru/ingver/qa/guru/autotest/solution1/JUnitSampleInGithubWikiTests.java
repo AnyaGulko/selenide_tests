@@ -5,9 +5,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.ingver.qa.guru.autotest.ConfigConstants;
 
-import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class JUnitSampleInGithubWikiTests {
 
@@ -22,14 +24,24 @@ public class JUnitSampleInGithubWikiTests {
     void checkJUnitSampleInGithubWiki() {
         open("/selenide/selenide");
         $("#wiki-tab").click();
-        $("a.internal.present", 8)
-                .shouldHave(text("Soft assertions"))
+        $(".wiki-rightbar")
+                .$("button.Link--muted")
                 .click();
+        $(byText("SoftAssertions")).click();
 
-        $$("h4.heading-element")
-                .find(text("JUnit5"))
-                .parent()
-                .sibling(0)
-                .shouldHave(cssClass("highlight-source-java"));
+        $("#wiki-body").shouldHave(text("""
+@ExtendWith({SoftAssertsExtension.class})
+class Tests {
+@Test
+void test() {
+Configuration.assertionMode = SOFT;
+open("page.html");
+
+$("#first").should(visible).click();
+$("#second").should(visible).click();
+}
+}
+"""))
+                .shouldBe(visible);
     }
 }
